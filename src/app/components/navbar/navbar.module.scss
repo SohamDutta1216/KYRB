@@ -23,3 +23,35 @@
     justify-self: center;
     gap: 2rem;
 }
+
+.languageSelector {
+    padding: 8px 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Narnoor', sans-serif;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  .languageSelector option {
+    padding: 8px 12px;
+    background-color: #fff;
+    border: none;
+    font-family: 'Narnoor', sans-serif;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .languageSelector:hover {
+    border-color: #888;
+  }
+  
+  .languageSelector:focus {
+    border-color: #555;
+  }

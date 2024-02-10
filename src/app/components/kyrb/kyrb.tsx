@@ -23,12 +23,19 @@ const Kyrb = () => {
         throw new Error("Network response was not ok");
       }
 
-      const botResponse = await response.json(); // Directly await the JSON response
+      const data = await response.json(); // Directly await the JSON response
+      console.log(data);
+      if (!data.success) {
+        throw new Error("Failed to get a valid response from the server");
+      }
 
       // Update the state with the bot response
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: botResponse.answer, type: "bot" }, // Assuming the API returns an object with an 'answer' property
+        {
+          text: data.answer.text || data.answer,
+          type: "bot",
+        },
       ]);
     } catch (error) {
       console.error("Failed to fetch bot response:", error);
