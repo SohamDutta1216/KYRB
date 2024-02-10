@@ -1,0 +1,25 @@
+@import url('https://fonts.cdnfonts.com/css/serbie');
+
+.navbar {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    border-bottom: 10px solid #f4f4f4;
+    justify-content: space-between;
+    align-items: self-end;
+}
+
+.logo{
+    font-family: 'Serbie', sans-serif;
+    font-size: 40px;
+}
+
+.navLeft{
+    display: flex;
+}
+.navRight{
+    display: flex;
+    justify-self: center;
+    gap: 2rem;
+}
