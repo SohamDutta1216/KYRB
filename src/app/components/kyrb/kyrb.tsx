@@ -51,11 +51,8 @@ const Kyrb = () => {
   };
 
   const handleSubmit = async (userInput: string) => {
-    // Add user message
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: userInput, type: "user" },
-    ]);
+    // Clear the chat before adding user message
+    setMessages([{ text: userInput, type: "user" }]);
 
     await fetchBotResponse(userInput);
   };
