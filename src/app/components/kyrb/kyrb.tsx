@@ -5,12 +5,14 @@ import Prompt from "./prompt";
 import Result from "./result";
 
 const Kyrb = () => {
-  const [messages, setMessages] = useState([
-    { text: "Hi, I'm KYRB. How can I assist you?", type: "bot" },
-  ]);
+  const [messages, setMessages] = useState<{ text: string; type: string }[]>(
+    []
+  );
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Added state to track loading status
 
   const fetchBotResponse = async (userInput: string) => {
+    setIsLoading(true); // Set loading to true when fetching response
     try {
       const response = await fetch("http://localhost:5000/api/query", {
         method: "POST",
@@ -41,6 +43,8 @@ const Kyrb = () => {
       console.error("Failed to fetch bot response:", error);
       setError("Failed to fetch response");
       return "Sorry, I couldn't fetch a response. Please try again later.";
+    } finally {
+      setIsLoading(false); // Set loading to false after fetching response
     }
   };
 
@@ -70,7 +74,8 @@ const Kyrb = () => {
       </div>
       <div className={styles.kyrbContainer}>
         <div className={styles.kyrbChat}>
-          <Result messages={messages} />
+          <Result messages={messages} isLoading={isLoading} />{" "}
+          {/* Pass isLoading state to Result component */}
           <Prompt handleSubmit={handleSubmit} error={error} />
         </div>
       </div>

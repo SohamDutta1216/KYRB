@@ -5,20 +5,29 @@
     width: 100%;
     max-height: 100vh;
     flex-direction: column;
+    padding: 2rem;
+    h1 {
+        text-align: center;
+       color:rgb(118, 111, 111);
+    }
     @media (min-width: var.$tablet) {
         flex-direction: row;
     }
 }
 
 .textContainer{
+    background-color: rgb(28, 26, 26);
+align-self: center;
 display: flex;
-width: 100%;
+width: 94%;
 padding: 1rem;
 flex-direction: column;
 gap: 1rem;
+border-radius: 1rem;
 @media (min-width: var.$tablet) {
     width: 30vw;
     padding: 2rem;
+    height: 75vh;
 }
 }
 
@@ -39,7 +48,7 @@ gap: 1rem;
     width: 100%;
     padding: 1rem;
     border: 2px solid rgb(28, 26, 26);
-    background-color: rgb(168, 166, 166);
+    background-color: rgb(28, 26, 26);
     border-radius: 1rem;
     flex-direction: column;
     gap: 1rem;
@@ -48,7 +57,7 @@ gap: 1rem;
     display: flex;
     width: 100%;
     justify-content: center;
-    background: rgb(40, 38, 38);
+    background-color:rgb(11 11 11);
     border-radius: 1rem;
     form {
         display:flex;
@@ -64,7 +73,8 @@ gap: 1rem;
         border-radius: 1rem;
         border: none;
         padding: 1rem;
-        background-color: rgb(40, 38, 38);
+        background-color: rgb(11 11 11);
+        color: white;
       }
       input:focus {
         outline: none;
@@ -72,10 +82,11 @@ gap: 1rem;
       button {
         width: 3rem;
         color:white;
-        background-color: rgb(40, 38, 38);
+        background-color:rgb(28, 26, 26);;
         border-radius: 1rem;
-        font-size: 2rem;
-        border: 1px solid grey;
+        font-size: 3.2rem;
+        border: 2px solid rgb(10, 10, 10);
+        color: rgb(10, 10, 10);
       }
   
 }
@@ -85,8 +96,22 @@ gap: 1rem;
     height: 90%;
     width: 100%;
     overflow: scroll;
-    background-color: white;
-    color: black;
+    background-color: rgb(11 11 11);
+    color: white;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.resultContainerStart{
+    border-radius: 1rem;
+    justify-content: center;
+    display: flex;
+    height: 90%;
+    width: 100%;
+    overflow: scroll;
+    background-color: rgb(11 11 11);
+    color: white;
     padding: 1rem;
     flex-direction: column;
     gap: 10px;

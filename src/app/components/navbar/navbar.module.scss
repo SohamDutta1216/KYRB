@@ -4,15 +4,16 @@
     width: 100vw;
     display: flex;
     flex-direction: row;
-    padding: 1rem;
-    border-bottom: 10px solid #f4f4f4;
+    padding: 1rem 3rem;
+    background-color: rgb(28, 26, 26);
     justify-content: space-between;
     align-items: self-end;
 }
 
 .logo{
     font-family: 'Serbie', sans-serif;
-    font-size: 40px;
+    font-size: 30px;
+    color: white;
 }
 
 .navLeft{
@@ -26,12 +27,12 @@
 
 .languageSelector {
     padding: 8px 12px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: rgb(11, 11, 11);
+    border: none;
     border-radius: 4px;
     font-family: 'Narnoor', sans-serif;
     font-size: 18px;
-    color: #333;
+    color: #ffffff;
     cursor: pointer;
     outline: none;
     -webkit-appearance: none;
