@@ -71,6 +71,13 @@ const Kyrb = () => {
           overwhelming task. That is why I exist; To help bring all the
           information you need to your fingertips !
         </p>
+        <h4>Enter your zip code below to find resources and help near you:</h4>
+        <div className={styles.zipContainer}>
+          <form>
+            <input type="text" placeholder="Zip" required />
+            <button type="submit">></button>{" "}
+          </form>
+        </div>
       </div>
       <div className={styles.kyrbContainer}>
         <div className={styles.kyrbChat}>
