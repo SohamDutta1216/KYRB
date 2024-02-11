@@ -27,6 +27,11 @@ const Result: React.FC<ResultProps> = ({ messages, isLoading }) => {
   if (!isLoading && messages.length < 1) {
     return (
       <div className={styles.resultContainerStart}>
+        <h1>Hi my name is KYRB - short for Know Your Rights Bot</h1>
+        <h1>
+          I am an AI assistant to help you navigate New York City housing and
+          tenant rights
+        </h1>
         <h1>What can I help you with today?</h1>
       </div>
     );

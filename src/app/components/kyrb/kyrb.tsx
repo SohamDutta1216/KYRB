@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import styles from "./kyrb.module.scss";
 import Prompt from "./prompt";
 import Result from "./result";
-
+import { GridLoader } from "react-spinners";
 const Kyrb = () => {
   const [messages, setMessages] = useState<{ text: string; type: string }[]>(
     []
   );
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Added state to track loading status
+  const [isZipLoading, setIsZipLoading] = useState(false); // Added state to track loading status
+  const [zipResults, setZipResults] = useState(""); // State to store zip query results
 
   const fetchBotResponse = async (userInput: string) => {
     setIsLoading(true); // Set loading to true when fetching response
@@ -57,32 +59,94 @@ const Kyrb = () => {
 
     await fetchBotResponse(userInput);
   };
-  console.log(messages);
+
+  const fetchZipResults = async (zipCode: string) => {
+    setIsZipLoading(true); // Set loading to true when fetching zip results
+    try {
+      const response = await fetch("http://localhost:5000/api/query/zip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ zip: zipCode }),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(data);
+      if (!data.success) {
+        throw new Error(
+          "Failed to get a valid response from the server for zip query"
+        );
+      }
+
+      // Update the state with the zip query results
+      setZipResults(data.answer.text || data.answer);
+    } catch (error) {
+      console.error("Failed to fetch zip results:", error);
+      setError("Failed to fetch zip results");
+    } finally {
+      setIsZipLoading(false); // Set loading to false after fetching zip results
+    }
+  };
+
+  const handleZipSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const zipCode = formData.get("zip") as string;
+    await fetchZipResults(zipCode);
+  };
+  const formatMessageText = (text: string) => {
+    // Regular expression to match numbered list items
+    const numberedListItemRegex = /(\d+\.\s+)/g;
+    // Regular expression to match URLs
+    const urlRegex = /(\bhttps?:\/\/\S+\b)/g;
+    // Replace occurrences with line breaks and add spacing before each numbered item except the first
+    let formattedText = text.replace(numberedListItemRegex, (match, offset) =>
+      offset > 0 ? `<br/><br/>${match}` : match
+    );
+    // Replace URLs with anchor tags, color them blue and underline
+    formattedText = formattedText.replace(
+      urlRegex,
+      "<a href='$1' target='_blank' style='color: #9d9dff; text-decoration: underline;'>$1</a>"
+    );
+    return formattedText;
+  }; // Function to format message text
+  console.log(zipResults);
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
-        <h3>
-          Hi my name is KYRB - short for Know Your Rights Bot, I am an AI tool
-          built to help you navigate tenant and housing issues in NYC
-        </h3>
-        <p>
-          New Yorkers are facing a housing crisis. Finding out what rights you
-          have as a tenant can help you stay protected but can be an
-          overwhelming task. That is why I exist; To help bring all the
-          information you need to your fingertips !
-        </p>
-        <h4>Enter your zip code below to find resources and help near you:</h4>
-        <div className={styles.zipContainer}>
-          <form>
-            <input type="text" placeholder="Zip" required />
-            <button type="submit">></button>{" "}
-          </form>
-        </div>
+        {isZipLoading ? (
+          <div className={styles.loader}>
+            <GridLoader color="#ffff" />
+          </div>
+        ) : (
+          <div className={styles.descriptionContainer}>
+            <h3>Enter your zip code to find resources near you</h3>
+            <div className={styles.zipContainer}>
+              <form onSubmit={handleZipSubmit}>
+                <input name="zip" type="text" placeholder="Zip" required />
+                <button type="submit">{">"}</button>
+              </form>
+            </div>
+          </div>
+        )}
+        {zipResults && (
+          <div className={styles.zipResults}>
+            {" "}
+            <p
+              dangerouslySetInnerHTML={{
+                __html: formatMessageText(zipResults),
+              }}
+            />
+          </div>
+        )}
       </div>
       <div className={styles.kyrbContainer}>
         <div className={styles.kyrbChat}>
-          <Result messages={messages} isLoading={isLoading} />{" "}
-          {/* Pass isLoading state to Result component */}
+          <Result messages={messages} isLoading={isLoading} />
           <Prompt handleSubmit={handleSubmit} error={error} />
         </div>
       </div>
