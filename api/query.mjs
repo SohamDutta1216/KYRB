@@ -47,7 +47,22 @@ const port = 5000;
 
 // Step 7: Use middleware for JSON parsing and enabling CORS
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://kyrb-chat.vercel.app",
+      "http://localhost:3000",
+    ];
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 // Step 8: Define the POST endpoint to handle user questions
 app.post("/api/query", async (req, res) => {

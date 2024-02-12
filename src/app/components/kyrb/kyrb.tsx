@@ -16,7 +16,7 @@ const Kyrb = () => {
   const fetchBotResponse = async (userInput: string) => {
     setIsLoading(true); // Set loading to true when fetching response
     try {
-      const response = await fetch("http://localhost:5000/api/query", {
+      const response = await fetch("https://kyrb-chat.vercel.app/api/query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,13 +60,16 @@ const Kyrb = () => {
   const fetchZipResults = async (zipCode: string) => {
     setIsZipLoading(true); // Set loading to true when fetching zip results
     try {
-      const response = await fetch("http://localhost:5000/api/query/zip", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ zip: zipCode }),
-      });
+      const response = await fetch(
+        "https://kyrb-chat.vercel.app/api/query/zip",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ zip: zipCode }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
