@@ -5,7 +5,7 @@ import styles from "./navbar.module.scss";
 const Navbar = () => {
   const [language, setLanguage] = useState("en");
 
-  const handleLanguageChange = async (e) => {
+  const handleLanguageChange = async (e: any) => {
     const selectedLanguage = e.target.value;
     setLanguage(selectedLanguage);
     try {
