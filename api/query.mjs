@@ -8,7 +8,7 @@ import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { CharacterTextSplitter } from "langchain/text_splitter";
 import dotenv from "dotenv";
-dotenv.config(); // Removed the hardcoded path to ensure it works in different environments
+dotenv.config({ path: "/Users/user/Desktop/code/kyrb/.env" });
 
 ////////////////////////////////////////////////////////
 // Step 1: Define the base template for the scrape
@@ -43,7 +43,7 @@ const tools = [
 
 // Step 6: Initialize the Express app and define the port
 const app = express();
-const port = process.env.PORT || 5000; // Use the PORT environment variable if available, otherwise default to 5000
+const port = 5000;
 
 // Step 7: Use middleware for JSON parsing and enabling CORS
 app.use(express.json());
