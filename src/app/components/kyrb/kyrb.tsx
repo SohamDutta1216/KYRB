@@ -16,7 +16,7 @@ const Kyrb = () => {
   const fetchBotResponse = async (userInput: string) => {
     setIsLoading(true); // Set loading to true when fetching response
     try {
-      const response = await fetch(`${process.env.PROD_URL}/api/query`, {
+      const response = await fetch(`/api/query`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ const Kyrb = () => {
   const fetchZipResults = async (zipCode: string) => {
     setIsZipLoading(true); // Set loading to true when fetching zip results
     try {
-      const response = await fetch(`${process.env.PROD_URL}/api/query/zip`, {
+      const response = await fetch(`/api/query/zip`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
