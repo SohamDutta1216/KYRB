@@ -60,7 +60,7 @@ const Kyrb = () => {
   const fetchZipResults = async (zipCode: string) => {
     setIsZipLoading(true); // Set loading to true when fetching zip results
     try {
-      const response = await fetch(`/api/query_zip`, {
+      const response = await fetch(`/api/zip`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
