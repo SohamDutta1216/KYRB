@@ -5,18 +5,17 @@ import { LLMChain } from "langchain/chains";
 import dotenv from "dotenv";
 dotenv.config();
 
-const zipTemplate =
-  "Please list housing and tenant rights non-profits along with any their url's and or phone numbers closest to this zip code {zip}";
+export default async function handler(req, res) {
+  const zipTemplate =
+    "Please list housing and tenant rights non-profits along with any their url's and or phone numbers closest to this zip code {zip}";
 
-const zipPrompt = new PromptTemplate({
-  template: zipTemplate,
-  inputVariables: ["zip"],
-});
+  const zipPrompt = new PromptTemplate({
+    template: zipTemplate,
+    inputVariables: ["zip"],
+  });
 
-const model = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0.4 });
-const zipChain = new LLMChain({ prompt: zipPrompt, llm: model });
-
-export default async (req, res) => {
+  const model = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0.4 });
+  const zipChain = new LLMChain({ prompt: zipPrompt, llm: model });
   if (req.method === "POST") {
     const { zip } = req.body;
     try {
@@ -34,4 +33,4 @@ export default async (req, res) => {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-};
+}

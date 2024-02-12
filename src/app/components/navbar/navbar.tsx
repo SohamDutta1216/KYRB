@@ -5,37 +5,13 @@ import styles from "./navbar.module.scss";
 const Navbar = () => {
   const [language, setLanguage] = useState("en");
 
-  const handleLanguageChange = async (e: any) => {
-    const selectedLanguage = e.target.value;
-    setLanguage(selectedLanguage);
-    try {
-      const response = await fetch("/api/query", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ language: selectedLanguage }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to send language to server");
-      }
-      console.log("Language set successfully");
-    } catch (error) {
-      console.error("Error setting language:", error);
-    }
-  };
-
   return (
     <div className={styles.navbar}>
       <div className={styles.navLeft}>
         <p className={styles.logo}>KYRB</p>
       </div>
       <div className={styles.navRight}>
-        <select
-          className={styles.languageSelector}
-          value={language}
-          onChange={handleLanguageChange}
-        >
+        <select className={styles.languageSelector} value={language}>
           <option value="en">English</option>
           <option value="es">Español</option>
           <option value="zh">中文</option>

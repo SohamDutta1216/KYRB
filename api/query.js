@@ -5,18 +5,18 @@ import { LLMChain } from "langchain/chains";
 import dotenv from "dotenv";
 dotenv.config();
 
-const template =
-  "You are an assistant helping New York City tenants know about their rights. Please answer this user's question - {question}. if you state a source or website, please provide the url at the end of the response";
+export default async function handler(req, res) {
+  const template =
+    "You are an assistant helping New York City tenants know about their rights. Please answer this user's question - {question}. if you state a source or website, please provide the url at the end of the response";
 
-const prompt = new PromptTemplate({
-  template: template,
-  inputVariables: ["question"],
-});
+  const prompt = new PromptTemplate({
+    template: template,
+    inputVariables: ["question"],
+  });
 
-const model = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0.4 });
-const chain = new LLMChain({ prompt: prompt, llm: model });
+  const model = new OpenAI({ modelName: "gpt-3.5-turbo", temperature: 0.4 });
+  const chain = new LLMChain({ prompt: prompt, llm: model });
 
-export default async (req, res) => {
   if (req.method === "POST") {
     const { question } = req.body;
     try {
@@ -34,4 +34,4 @@ export default async (req, res) => {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-};
+}

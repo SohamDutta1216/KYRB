@@ -29,7 +29,7 @@ const Prompt: React.FC<PromptProps> = ({ handleSubmit, error }) => {
           onChange={(e) => setInput(e.target.value)}
           required
         />
-        <button type="submit">⬆</button>{" "}
+        <button type="submit">{">"}</button>{" "}
       </form>
     </div>
   );
